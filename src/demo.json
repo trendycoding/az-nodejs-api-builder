@@ -1,0 +1,64 @@
+{
+    "$ref": "./config-schema.json",
+    "projectName": "evangelizer",
+    "functionPrefix": "",
+    "folders": {
+        "test": "__test__",
+        "models": "models",
+        "validation": "validation",
+        "actionFunctions": "actions",
+        "schemas": "demo/schemas"
+    },
+    "models": [
+        {
+            "typeName": "BelieverFilterModel",
+            "schema": "demo/schemas/BelieverFilterModel.json"
+        },
+        {
+            "typeName": "BelieverModel",
+            "schema": "demo/schemas/BelieverModel.json"
+        },
+        {
+            "typeName": "NewBelieverModel",
+            "schema": "demo/schemas/NewBelieverModel.json"
+        },
+        {
+            "typeName": "UpdateBelieverModel",
+            "schema": "demo/schemas/BelieverModel.json"
+        },
+        {
+            "typeName": "DeleteBelieverModel",
+            "schema": "demo/schemas/DeleteBelieverModel.json"
+        }
+    ],
+    "entities": [
+        {
+            "mame": "Believer",
+            "alias": "believer",
+            "parentEntity": null,
+            "actions": {
+                "singularityType": "string",
+                "get": {
+                    "requestSchema": "BelieverFilterModel",
+                    "responseSchema": "BelieverModel",
+                    "actionFunction": "filterBeliever"
+                },
+                "post": {
+                    "requestSchema": "NewBelieverModel",
+                    "responseSchema": "BelieverModel",
+                    "actionFunction": "insertBeliever"
+                },
+                "put": {
+                    "requestSchema": "BelieverModel",
+                    "responseSchema": "BelieverModel",
+                    "actionFunction": "updateBeliever"
+                },
+                "delete": {
+                    "requestSchema": "DeleteBelieverModel",
+                    "responseSchema": "BelieverModel",
+                    "actionFunction": "deleteBelievers"
+                }
+            }
+        }
+    ]
+}

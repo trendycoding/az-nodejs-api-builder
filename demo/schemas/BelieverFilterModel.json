@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://believer.evangelizer.site",
+    "type": "object",
+    "description": "Filter data to be used to find a believer",
+    "properties": {
+        "firstName": {
+            "type": "string",
+            "description": "Partial first name"
+        },
+        "lastName": {
+            "type": "string",
+            "description": "Partial last name"
+        },
+        "phone": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 20,
+            "description": "Partial phone number used to search for a believer"
+        },
+        "comments": {
+            "type": "string",
+            "description": "Comments about the believer including needs"
+        },
+        "prayerRequests": {
+            "type": "string",
+            "description": "Text contained in a prayer request comment"
+        }
+    }
+}

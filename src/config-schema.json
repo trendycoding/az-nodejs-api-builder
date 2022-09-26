@@ -1,0 +1,254 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://trendycoding.com/schemas/api-generation.json",
+    "title": "api-metadata",
+    "description": "An API metadata descriptor to facilitate generating Azure Function endpoints",
+    "type": "object",
+    "properties": {
+        "functionPrefix": {
+            "type": "string",
+            "description": "A prefix to add to each function name"
+        },
+        "projectName": {
+            "description": "The name of the API project for human friendly naming",
+            "type": "string"
+        },
+        "folders": {
+            "type": "object",
+            "description": "A list of folder configuration to store different elements of the API construct",
+            "properties": {
+                "actionFunctions": {
+                    "type": "string",
+                    "description": "A folder to store action functions that will be call directly by the ACTION end point",
+                    "default": "actions"
+                },
+                "models": {
+                    "type": "string",
+                    "description": "A folder to store models, the generator will create a Request and a Response subfolder to further organize models",
+                    "default": "models"
+                },
+                "schemas": {
+                    "type": "string",
+                    "description": "A folder where schemas can be found",
+                    "default": "schemas"
+                },
+                "test": {
+                    "type": "string",
+                    "description": "A folder to store test for TDD implementations like Jest and Jenkings",
+                    "default": "__test__"
+                },
+                "validation": {
+                    "type": "string",
+                    "description": "A folder to store validation functions that will be call directly by the ACTION end point",
+                    "default": "validation"
+                }
+            }
+        },
+        "models": {
+            "type": "array",
+            "description": "An array of schemas used to generate JSON models. These schemas drive the type definition and the JSON validation when Requests are submitted",
+            "items": {
+                "type": "object",
+                "description": "An object describing the model including its schema",
+                "properties": {
+                    "modelName": {
+                        "type": "string",
+                        "description": "The name of the model, this is used to name the type"
+                    },
+                    "modelSchema": {
+                        "description": "The schema definition file name",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "modelName",
+                    "modelSchema"
+                ]
+            }
+        },
+        "endPoints": {
+            "type": "array",
+            "description": "An array of enitty definitions, that translates to endpoints",
+            "items": {
+                "description": "End point description",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the entity, if no alias is provided this will be referenced in the route"
+                    },
+                    "alias": {
+                        "type": "string",
+                        "description": "The alias to use in the route for this endpoint"
+                    },
+                    "parentEntity": {
+                        "type": "string",
+                        "description": "The name of the entity that owns the current entity. This is used for route chaining like: organization/123/users or organization/123/users/4566"
+                    },
+                    "singularityType": {
+                        "type": "string",
+                        "description": "The type of value passed in the route chain to access a single record, this translates to attribute routing in Azure functions. e.g. oragnizations/12323/users/ymartinez has a singularity type number for organization and string for users",
+                        "anyOf": [
+                            {
+                                "const": "alpha"
+                            },
+                            {
+                                "const": "guid"
+                            },
+                            {
+                                "const": "int"
+                            },
+                            {
+                                "const": "long"
+                            }
+                        ]
+                    },
+                    "forceDirectRoute": {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "Whether the API exposes a direct route to the endpoint instead of the chaining route"
+                    },
+                    "actions": {
+                        "type": "object",
+                        "description": "A list of actions to implement for the entity, Actions match HTTP verbs like GET, POST, PUT, and DELETE. Actions are restricted to those actions allowed by Azure functions",
+                        "properties": {
+                            "get": {
+                                "type": "object",
+                                "description": "A method in the Azure function that handle get request and filtering",
+                                "properties": {
+                                    "implementSingularity": {
+                                        "type": "boolean",
+                                        "description": "Include a single record result for get base using singularity parameter",
+                                        "default": true
+                                    },
+                                    "requestModel": {
+                                        "type": "string",
+                                        "description": "The name of the request model as defined in the models section"
+                                    },
+                                    "responseModel": {
+                                        "type": "string",
+                                        "description": "The name of the response model as defined in the models section"
+                                    },
+                                    "actionFunction": {
+                                        "type": "string",
+                                        "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                                    }
+                                },
+                                "required": [
+                                    "requestModel",
+                                    "responseModel",
+                                    "actionFunction"
+                                ]
+                            },
+                            "post": {
+                                "type": "object",
+                                "description": "A method in the Azure function that handle post request",
+                                "properties": {
+                                    "requestModel": {
+                                        "type": "string",
+                                        "description": "The name of the request model as defined in the models section"
+                                    },
+                                    "responseModel": {
+                                        "type": "string",
+                                        "description": "The name of the response model as defined in the models section"
+                                    },
+                                    "actionFunction": {
+                                        "type": "string",
+                                        "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                                    }
+                                },
+                                "required": [
+                                    "requestModel",
+                                    "responseModel",
+                                    "actionFunction"
+                                ]
+                            },
+                            "put": {
+                                "type": "object",
+                                "description": "A method in the Azure function that handle put request",
+                                "properties": {
+                                    "requestModel": {
+                                        "type": "string",
+                                        "description": "The name of the request model as defined in the models section"
+                                    },
+                                    "responseModel": {
+                                        "type": "string",
+                                        "description": "The name of the response model as defined in the models section"
+                                    },
+                                    "actionFunction": {
+                                        "type": "string",
+                                        "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                                    }
+                                },
+                                "required": [
+                                    "requestModel",
+                                    "responseModel",
+                                    "actionFunction"
+                                ]
+                            },
+                            "patch": {
+                                "type": "object",
+                                "description": "A method in the Azure function that handle PATCH request",
+                                "properties": {
+                                    "requestModel": {
+                                        "type": "string",
+                                        "description": "The name of the request model as defined in the models section"
+                                    },
+                                    "responseModel": {
+                                        "type": "string",
+                                        "description": "The name of the response model as defined in the models section"
+                                    },
+                                    "actionFunction": {
+                                        "type": "string",
+                                        "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                                    }
+                                },
+                                "required": [
+                                    "requestModel",
+                                    "responseModel",
+                                    "actionFunction"
+                                ]
+                            },
+                            "delete": {
+                                "type": "object",
+                                "description": "A method in the Azure function that handle delete request and filtering",
+                                "properties": {
+                                    "implementSingularity": {
+                                        "type": "boolean",
+                                        "description": "Include a single record deletion using singularity parameter",
+                                        "default": true
+                                    },
+                                    "requestModel": {
+                                        "type": "string",
+                                        "description": "The name of the request model as defined in the models section"
+                                    },
+                                    "responseModel": {
+                                        "type": "string",
+                                        "description": "The name of the response model as defined in the models section"
+                                    },
+                                    "actionFunction": {
+                                        "type": "string",
+                                        "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                                    }
+                                },
+                                "required": [
+                                    "requestModel",
+                                    "responseModel",
+                                    "actionFunction"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "required": [
+                    "name",
+                    "entity",
+                    "singularityType"
+                ]
+            }
+        }
+    },
+    "required": [
+        "projectName"
+    ]
+}

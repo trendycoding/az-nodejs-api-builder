@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://believer.evangelizer.site",
+    "type": "object",
+    "properties": {
+        "firstName": {
+            "type": "string",
+            "description": "Believer first name"
+        },
+        "lastName": {
+            "type": "string",
+            "description": "Believer last name"
+        },
+        "phone": {
+            "anyOf": [
+                {
+                    "type": "string",
+                    "minLength": 10,
+                    "maxLength": 20,
+                    "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+                },
+                {
+                    "type": [
+                        "null"
+                    ]
+                }
+            ],
+            "description": "Believer phone number"
+        },
+        "address": {
+            "$ref": "https://address.evangelizer.site"
+        },
+        "comments": {
+            "type": "string",
+            "description": "Comments about the believer including needs"
+        },
+        "prayerRequests": {
+            "type": "array",
+            "description": "A list of prayer requests",
+            "items": {
+                "type": "string",
+                "description": "A prayer request comment"
+            }
+        },
+        "images": {
+            "type": "array",
+            "description": "Images related to the believer, baptism, profession of faith, etc.",
+            "items": {
+                "type": "object",
+                "description": "Describes an image and how to get it from blob storage",
+                "properties": {
+                    "imageId": {
+                        "type": "string",
+                        "description": "Image ID in the blob storage account"
+                    },
+                    "constainerId": {
+                        "type": "string",
+                        "description": "Image container ID in the blob storage account"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "firstName",
+        "lastName",
+        "phone"
+    ]
+}

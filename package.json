@@ -1,0 +1,61 @@
+{
+  "name": "az-fn-api-builder",
+  "version": "1.0.0",
+  "description": "A CLI application that allows scaffolding Azure function APIs from a JSON configuration file",
+  "main": "./lib/index.js",
+  "bin": {
+    "az-fn-api-builder": "./lib/index.js"
+  },
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "start:windows": "nodemon --watch 'src/**/*.ts' --exec \"npx ts-node\" src/index.ts",
+    "create": "npm run build && npm run test",
+    "build": "tsc -p .",
+    "local": "sudo npm i -g && az-fn-api-builder",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trendycoding/az-nodejs-api-builder.git"
+  },
+  "keywords": [
+    "API",
+    "scaffolding",
+    "Azure",
+    "Functions"
+  ],
+  "author": "Yoel Martinez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trendycoding/az-nodejs-api-builder/issues"
+  },
+  "homepage": "https://github.com/trendycoding/az-nodejs-api-builder#readme",
+  "dependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0",
+    "commander": "^9.4.0",
+    "figlet": "^1.5.2",
+    "fs-extra": "^10.1.0",
+    "inquirer": "^9.1.1",
+    "inversify": "^6.0.1",
+    "json-schema-to-typescript": "^11.0.2",
+    "json2ts": "0.0.7",
+    "kleur": "^4.1.5",
+    "path": "^0.12.7",
+    "reflect-metadata": "^0.1.13",
+    "tslib": "^2.4.0",
+    "yargs": "^17.5.1"
+  },
+  "devDependencies": {
+    "@liftr/tscov": "^2.0.0",
+    "@types/figlet": "^1.5.5",
+    "@types/inquirer": "^9.0.1",
+    "@types/node": "^18.7.16",
+    "@types/yargs": "^17.0.12",
+    "nodemon": "^2.0.19",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.14",
+    "typescript": "^4.8.3"
+  }
+}
