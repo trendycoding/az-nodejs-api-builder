@@ -3,32 +3,32 @@
     "projectName": "evangelizer",
     "functionPrefix": "",
     "folders": {
-        "test": "__test__",
-        "models": "models",
-        "validation": "validation",
-        "actionFunctions": "actions",
-        "schemas": "demo/schemas"
+        "test": "/demo/__test__/",
+        "models": "/demo/models/",
+        "validation": "/demo/validation/",
+        "actionFunctions": "/demo/actions/",
+        "schemas": "/demo/schemas/"
     },
     "models": [
         {
-            "typeName": "BelieverFilterModel",
-            "schema": "demo/schemas/BelieverFilterModel.json"
+            "modelName": "BelieverFilterModel",
+            "modelSchemaFile": "BelieverFilterModel.json"
         },
         {
-            "typeName": "BelieverModel",
-            "schema": "demo/schemas/BelieverModel.json"
+            "modelName": "BelieverModel",
+            "modelSchemaFile": "BelieverModel.json"
         },
         {
-            "typeName": "NewBelieverModel",
-            "schema": "demo/schemas/NewBelieverModel.json"
+            "modelName": "NewBelieverModel",
+            "modelSchemaFile": "NewBelieverModel.json"
         },
         {
-            "typeName": "UpdateBelieverModel",
-            "schema": "demo/schemas/BelieverModel.json"
+            "modelName": "UpdateBelieverModel",
+            "modelSchemaFile": "BelieverModel.json"
         },
         {
-            "typeName": "DeleteBelieverModel",
-            "schema": "demo/schemas/DeleteBelieverModel.json"
+            "modelName": "DeleteBelieverModel",
+            "modelSchemaFile": "DeleteBelieverModel.json"
         }
     ],
     "entities": [
@@ -36,6 +36,7 @@
             "mame": "Believer",
             "alias": "believer",
             "parentEntity": null,
+            "azFunctionName": "func-http-believer",
             "actions": {
                 "singularityType": "string",
                 "get": {
@@ -54,7 +55,6 @@
                     "actionFunction": "updateBeliever"
                 },
                 "delete": {
-                    "requestSchema": "DeleteBelieverModel",
                     "responseSchema": "BelieverModel",
                     "actionFunction": "deleteBelievers"
                 }

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://believer.evangelizer.site",
+    "type": "object",
+    "properties": {
+        "beliverId": {
+            "type": "string",
+            "description": "A believer ID that uniquely identifies a believer in a databse"
+        }
+    },
+    "required": [
+        "believerId"
+    ]
+}

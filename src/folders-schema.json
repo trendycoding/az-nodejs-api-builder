@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://trendycoding.com/schemas/endpoint-schema.json",
+    "title": "folders",
+    "definitions": {
+        "folders": {
+            "type": "object",
+            "description": "A list of folder configuration to store different elements of the API construct",
+            "properties": {
+                "actionFunctions": {
+                    "type": "string",
+                    "description": "A folder to store action functions that will be call directly by the ACTION end point",
+                    "default": "actions"
+                },
+                "models": {
+                    "type": "string",
+                    "description": "A folder to store models, the generator will create a Request and a Response subfolder to further organize models",
+                    "default": "models"
+                },
+                "schemas": {
+                    "type": "string",
+                    "description": "A folder where schemas can be found",
+                    "default": "schemas"
+                },
+                "test": {
+                    "type": "string",
+                    "description": "A folder to store test for TDD implementations like Jest and Jenkings",
+                    "default": "__test__"
+                },
+                "validation": {
+                    "type": "string",
+                    "description": "A folder to store validation functions that will be call directly by the ACTION end point",
+                    "default": "validation"
+                }
+            }
+        }
+    }
+}

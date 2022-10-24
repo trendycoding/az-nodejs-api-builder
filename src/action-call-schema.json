@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://trendycoding.com/schemas/action-call-schema.json",
+    "title": "action-call",
+    "definitions": {
+        "genericAction": {
+            "type": "object",
+            "description": "A method in the Azure function that handle get request and filtering",
+            "properties": {
+                "implementSingularity": {
+                    "type": "boolean",
+                    "description": "Include a single record result for get base using singularity parameter",
+                    "default": true
+                },
+                "requestModel": {
+                    "type": "string",
+                    "description": "The name of the request model as defined in the models section"
+                },
+                "responseModel": {
+                    "type": "string",
+                    "description": "The name of the response model as defined in the models section"
+                },
+                "actionFunction": {
+                    "type": "string",
+                    "description": "The name of the action function implementing the logic behind the end point. If using OOP the class name followed by the method: MyClass.MyMethod, if using functional programming the function name is enough"
+                }
+            },
+            "required": [
+                "requestModel",
+                "responseModel",
+                "actionFunction"
+            ]
+        }
+    }
+}

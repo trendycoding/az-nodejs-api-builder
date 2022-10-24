@@ -1,0 +1,69 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://trendycoding.com/schemas/endpoint-schema.json",
+    "title": "endpoint-definition",
+    "definitions": {
+        "endpoint": {
+            "description": "End point description",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the entity, if no alias is provided this will be referenced in the route"
+                },
+                "alias": {
+                    "type": "string",
+                    "description": "The alias to use in the route for this endpoint"
+                },
+                "parentEntity": {
+                    "type": "string",
+                    "description": "The name of the entity that owns the current entity. This is used for route chaining like: organization/123/users or organization/123/users/4566"
+                },
+                "singularityType": {
+                    "type": "string",
+                    "description": "The type of value passed in the route chain to access a single record, this translates to attribute routing in Azure functions. e.g. oragnizations/12323/users/ymartinez has a singularity type number for organization and string for users",
+                    "anyOf": [
+                        {
+                            "const": "alpha"
+                        },
+                        {
+                            "const": "guid"
+                        },
+                        {
+                            "const": "int"
+                        },
+                        {
+                            "const": "long"
+                        }
+                    ]
+                },
+                "forceDirectRoute": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Whether the API exposes a direct route to the endpoint instead of the chaining route"
+                },
+                "actions": {
+                    "type": "object",
+                    "description": "A list of actions to implement for the entity, Actions match HTTP verbs like GET, POST, PUT, and DELETE. Actions are restricted to those actions allowed by Azure functions",
+                    "properties": {
+                        "get": {
+                            "$ref": "./action-call-schema.json#/definitions/genericAction"
+                        },
+                        "post": {
+                            "$ref": "./action-call-schema.json#/definitions/genericAction"
+                        },
+                        "put": {
+                            "$ref": "./action-call-schema.json#/definitions/genericAction"
+                        },
+                        "patch": {
+                            "$ref": "./action-call-schema.json#/definitions/genericAction"
+                        },
+                        "delete": {
+                            "$ref": "./action-call-schema.json#/definitions/genericAction"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://trendycoding.com/schemas/endpoint-schema.json",
+    "title": "model",
+    "definitions": {
+        "model": {
+            "type": "object",
+            "description": "An object describing the model including its schema",
+            "properties": {
+                "modelName": {
+                    "type": "string",
+                    "description": "The name of the model, this is used to name the type"
+                },
+                "modelSchemaFile": {
+                    "description": "The schema definition file name",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "modelName",
+                "modelSchema"
+            ]
+        }
+    }
+}
